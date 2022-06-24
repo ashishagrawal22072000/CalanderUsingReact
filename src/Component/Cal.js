@@ -23,7 +23,8 @@ const Getcalander = (days = Days, months = Months) => {
   const currentDate = today.getDate();
   console.log(currentDate);
 
-  //   let currentMonth = today.getMonth();
+  let currentMonth = today.getMonth();
+  let currentYear = today.getFullYear();
   //   let [currMonth, setCurrMonth] = useState(months[today.getMonth()]);
   //   console.log("currentMonth", currMonth);
 
@@ -33,6 +34,7 @@ const Getcalander = (days = Days, months = Months) => {
   const dayInWeek = [0, 1, 2, 3, 4, 5, 6];
   const [selectDate, setSelectDate] = useState(today);
   console.log("selectDate", selectDate);
+  console.log("selectMonth", selectDate.getMonth());
   const monthLastDate = new Date(
     selectDate.getFullYear(),
     selectDate.getMonth() + 1,
@@ -85,8 +87,8 @@ const Getcalander = (days = Days, months = Months) => {
             ...calanderRow[i],
             {
               month: `${months[selectDate.getMonth() - 1]}`,
-
               date: prevMonthStartingPoint,
+              year: selectDate.getFullYear() - 1,
             },
           ];
           prevMonthStartingPoint++;
@@ -96,8 +98,11 @@ const Getcalander = (days = Days, months = Months) => {
             ...calanderRow[i],
             {
               month: `${months[selectDate.getMonth()]}`,
-
               date: currentMonthCounter,
+              year:
+                selectDate.getMonth() === 0
+                  ? selectDate.getFullYear() - 1
+                  : selectDate.getFullYear(),
             },
           ];
           currentMonthCounter++;
@@ -109,6 +114,7 @@ const Getcalander = (days = Days, months = Months) => {
             month: `${months[selectDate.getMonth()]}`,
 
             date: currentMonthCounter,
+            year: selectDate.getFullYear(),
           },
         ];
         currentMonthCounter++;
@@ -127,6 +133,10 @@ const Getcalander = (days = Days, months = Months) => {
             }`,
 
             date: nextMonthCounter,
+            year:
+              selectDate.getMonth() === 11
+                ? selectDate.getFullYear() + 1
+                : selectDate.getFullYear(),
           },
         ];
         nextMonthCounter++;
@@ -153,6 +163,8 @@ const Getcalander = (days = Days, months = Months) => {
     days,
     months,
     currentDate,
+    currentMonth,
+    currentYear,
     calanderRow,
     selectDate,
     getPrevMonth,

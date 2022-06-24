@@ -6,6 +6,9 @@ export default function Calander() {
   const {
     days,
     months,
+    currentDate,
+    currentMonth,
+    currentYear,
     calanderRow,
     selectDate,
     getPrevMonth,
@@ -14,39 +17,6 @@ export default function Calander() {
   } = Getcalander();
 
   return (
-    //     <div>
-    //       <table>
-    //         <thead>
-    //           <tr>
-    //             {days.map((val) => {
-    //               return <th>{val}</th>;
-    //             })}
-    //           </tr>
-    //         </thead>
-    //         <tbody>
-    //           {Object.values(calanderRow).map((val) => {
-    //             return (
-    //               <tr>
-    //                 {/* {val[0].date} */}
-    //                 {val.map((vals) => {
-    //                   console.log("valsvals",vals)
-    //                   return vals.value === 1 ? (
-    //                   <td>{vals.value} {vals.month}</td>
-    //                   ):
-    //                   (<><td>{vals.value}</td></>)
-
-    //                 })}
-    //               </tr>
-    //             );
-    //           })}
-    //         </tbody>
-    //       </table>
-
-    // <button onClick={getPrevMonth}>Prev</button>
-    // <button onClick={getNextMonth}>Next</button>
-
-    //     </div>
-
     <>
       <div className="container-fluid">
         <div className="header d-flex justify-content-between align-items-center p-3">
@@ -63,7 +33,7 @@ export default function Calander() {
               <button onClick={getPrevMonth} className="btn  border border-2">
                 <GrPrevious />
               </button>
-              <button className="btn border border-2" onClick={getToday}>
+              <button className="btn border border-2 mx-2" onClick={getToday}>
                 Today
               </button>
               <button onClick={getNextMonth} className="btn border border-2">
@@ -101,7 +71,7 @@ export default function Calander() {
                           <div
                             className="col border"
                             style={{
-                              background: `${i === 0 ? "#f3e9d2" : ""}`,
+                              background: `${i === 0 ? "#f0f0f2" : ""}`,
                             }}
                           >
                             <h2
@@ -120,7 +90,7 @@ export default function Calander() {
                               >
                                 {value.date}
                               </span>
-                              <span>{value.month}</span>
+                              <span>{value.month.slice(0, 3)}</span>
                             </h2>
                           </div>
                         </>
@@ -128,11 +98,8 @@ export default function Calander() {
                         <>
                           <div
                             className="col border"
-                            // style={`${
-                            //   i === 0 ? { color: "green" } : { color: "red" }
-                            // }`}
                             style={{
-                              backgroundColor: `${i === 0 ? "#f3e9d2" : ""}`,
+                              backgroundColor: `${i === 0 ? "#f0f0f2" : ""}`,
                             }}
                           >
                             <h2
@@ -144,9 +111,9 @@ export default function Calander() {
                             >
                               <span
                                 className={`${
-                                  value.month ===
-                                    months[selectDate.getMonth()] &&
-                                  value.date === selectDate.getDate()
+                                  value.month === months[currentMonth] &&
+                                  value.date === currentDate &&
+                                  value.year === currentYear
                                     ? "text-light bg-danger rounded-circle p-2"
                                     : ""
                                 }`}
