@@ -3,10 +3,15 @@ import Getcalander from "./Cal";
 import "bootstrap/dist/css/bootstrap.css";
 import { GrPrevious, GrNext } from "react-icons/gr";
 export default function Calander() {
-  const { days, months, calanderRow, selectDate, getPrevMonth, getNextMonth } =
-    Getcalander();
-
-    
+  const {
+    days,
+    months,
+    calanderRow,
+    selectDate,
+    getPrevMonth,
+    getNextMonth,
+    getToday,
+  } = Getcalander();
 
   return (
     //     <div>
@@ -58,10 +63,10 @@ export default function Calander() {
               <button onClick={getPrevMonth} className="btn  border border-2">
                 <GrPrevious />
               </button>
-              <button
-                onClick={getNextMonth}
-                className="btn mx-5 border border-2"
-              >
+              <button className="btn border border-2" onClick={getToday}>
+                Today
+              </button>
+              <button onClick={getNextMonth} className="btn border border-2">
                 <GrNext />
               </button>
             </span>
@@ -84,7 +89,7 @@ export default function Calander() {
           {Object.values(calanderRow).map((val) => {
             return (
               <div className="row" style={{ height: "135px" }}>
-                {val.map((value) => {
+                {val.map((value, i) => {
                   console.log(
                     months[selectDate.getMonth() + 1],
                     selectDate.getDate()
@@ -93,13 +98,18 @@ export default function Calander() {
                     <>
                       {value.date === 1 ? (
                         <>
-                          <div className="col border">
+                          <div
+                            className="col border"
+                            style={{
+                              background: `${i === 0 ? "#f3e9d2" : ""}`,
+                            }}
+                          >
                             <h2
                               className={`${
                                 value.month !== months[selectDate.getMonth()]
                                   ? "text-secondary"
                                   : ""
-                              }`}
+                              } mt-3`}
                             >
                               <span
                                 className={`${
@@ -116,7 +126,15 @@ export default function Calander() {
                         </>
                       ) : (
                         <>
-                          <div className="col border">
+                          <div
+                            className="col border"
+                            // style={`${
+                            //   i === 0 ? { color: "green" } : { color: "red" }
+                            // }`}
+                            style={{
+                              backgroundColor: `${i === 0 ? "#f3e9d2" : ""}`,
+                            }}
+                          >
                             <h2
                               className={`${
                                 value.month !== months[selectDate.getMonth()]

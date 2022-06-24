@@ -73,8 +73,8 @@ const Getcalander = (days = Days, months = Months) => {
 
   const calanderRow = {};
 
-  for (let i = 1; i < row + 1; i++) {
-    for (let j = 1; j < col + 1; j++) {
+  for (let i = 1; i <= row; i++) {
+    for (let j = 1; j <= col; j++) {
       if (!calanderRow[i]) {
         calanderRow[i] = [];
         console.log("calanderrow", calanderRow);
@@ -85,15 +85,7 @@ const Getcalander = (days = Days, months = Months) => {
             ...calanderRow[i],
             {
               month: `${months[selectDate.getMonth() - 1]}`,
-              //   date: `${prevMonthStartingPoint}  - ${
-              //     selectDate.getMonth() === 0 ? 12 : selectDate.getMonth()
-              //   }
-              //         - ${
-              //           selectDate.getMonth() === 0
-              //             ? selectDate.getFullYear() - 1
-              //             : selectDate.getFullYear()
-              //         }
-              //     `,
+
               date: prevMonthStartingPoint,
             },
           ];
@@ -104,9 +96,7 @@ const Getcalander = (days = Days, months = Months) => {
             ...calanderRow[i],
             {
               month: `${months[selectDate.getMonth()]}`,
-              //   date: `${currentMonthCounter} - ${
-              //     selectDate.getMonth() + 1
-              //   } - ${selectDate.getFullYear()}`,
+
               date: currentMonthCounter,
             },
           ];
@@ -117,9 +107,7 @@ const Getcalander = (days = Days, months = Months) => {
           ...calanderRow[i],
           {
             month: `${months[selectDate.getMonth()]}`,
-            // date: `${currentMonthCounter} - ${
-            //   selectDate.getMonth() + 1
-            // } - ${selectDate.getFullYear()}`,
+
             date: currentMonthCounter,
           },
         ];
@@ -137,13 +125,7 @@ const Getcalander = (days = Days, months = Months) => {
                 ? months[selectDate.getMonth() - 11]
                 : months[selectDate.getMonth() + 1]
             }`,
-            // date: `${nextMonthCounter} - ${
-            //   selectDate.getMonth() + 1 === 12 ? 1 : selectDate.getMonth() + 1
-            // } - ${
-            //   selectDate.getMonth() + 1 === 12
-            //     ? selectDate.getFullYear() + 1
-            //     : selectDate.getFullYear()
-            // } `,
+
             date: nextMonthCounter,
           },
         ];
@@ -160,16 +142,22 @@ const Getcalander = (days = Days, months = Months) => {
     setSelectDate((val) => new Date(val.getFullYear(), val.getMonth() + 1, 1));
   };
 
+  const getToday = () => {
+    setSelectDate(
+      () => new Date(today.getFullYear(), today.getMonth(), today.getDate())
+    );
+    console.log("This Is The Current Date", selectDate);
+  };
+
   return {
     days,
     months,
     currentDate,
-    // currMonth,
-    // currentYear,
     calanderRow,
     selectDate,
     getPrevMonth,
     getNextMonth,
+    getToday,
   };
 };
 
