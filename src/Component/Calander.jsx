@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import Getcalander from "./Cal";
+import GetCalander from "./Moment";
 import "bootstrap/dist/css/bootstrap.css";
+import moment from "moment";
 import { GrPrevious, GrNext } from "react-icons/gr";
 export default function Calander() {
   const {
@@ -14,7 +15,13 @@ export default function Calander() {
     getPrevMonth,
     getNextMonth,
     getToday,
-  } = Getcalander();
+  } = GetCalander();
+
+  console.log(
+    "cbejbce3be3knkrenfk jhb3iuf3f",
+    months[+moment(selectDate).format("MM")]
+  );
+  console.log("cbejbce3be3knkrenf", +moment(selectDate).format("MM"));
 
   return (
     <>
@@ -22,10 +29,10 @@ export default function Calander() {
         <div className="header d-flex justify-content-between align-items-center p-3">
           <div>
             <span className="fw-bold mx-2" style={{ fontSize: "50px" }}>
-              {months[selectDate.getMonth()]}
+              {months[+moment(selectDate).format("MM")-1]}
             </span>{" "}
             <span className="h1 fw-normal" style={{ fontSize: "50px" }}>
-              {selectDate.getFullYear()}
+              {moment(selectDate).format("YYYY")}
             </span>
           </div>
           <div>
@@ -42,13 +49,12 @@ export default function Calander() {
             </span>
           </div>
         </div>
-
         <div className="h-100 w-100  text-end">
           <div className="row">
             {days.map((val) => {
               return (
                 <>
-                  <div className="col">
+                  <div className="col" key={val}>
                     <h3 className="fw-normal">{val}</h3>
                   </div>
                 </>
@@ -60,10 +66,6 @@ export default function Calander() {
             return (
               <div className="row" style={{ height: "135px" }}>
                 {val.map((value, i) => {
-                  console.log(
-                    months[selectDate.getMonth() + 1],
-                    selectDate.getDate()
-                  );
                   return (
                     <>
                       {value.date === 1 ? (
@@ -76,14 +78,16 @@ export default function Calander() {
                           >
                             <h2
                               className={`${
-                                value.month !== months[selectDate.getMonth()]
+                                value.month !==
+                                months[+moment(selectDate).format("MM")]
                                   ? "text-secondary"
                                   : ""
                               } mt-3`}
                             >
                               <span
                                 className={`${
-                                  value.month === selectDate.getMonth() + 1
+                                  value.month ===
+                                  +moment(selectDate).format("MM") + 1
                                     ? "text-danger"
                                     : ""
                                 }`}
@@ -104,7 +108,8 @@ export default function Calander() {
                           >
                             <h2
                               className={`${
-                                value.month !== months[selectDate.getMonth()]
+                                value.month !==
+                                months[+moment(selectDate).format("MM")]
                                   ? "text-secondary"
                                   : ""
                               } mt-3`}

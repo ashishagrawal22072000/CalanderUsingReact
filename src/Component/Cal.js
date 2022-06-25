@@ -18,55 +18,41 @@ const Months = [
 
 const Getcalander = (days = Days, months = Months) => {
   const today = new Date();
-  console.log(today.getDay());
-  console.log(today.getFullYear());
+  console.log("today", today);
   const currentDate = today.getDate();
-  console.log(currentDate);
-
+  console.log("currentdate", currentDate);
   let currentMonth = today.getMonth();
+  console.log("currentmonth", currentMonth);
   let currentYear = today.getFullYear();
-  //   let [currMonth, setCurrMonth] = useState(months[today.getMonth()]);
-  //   console.log("currentMonth", currMonth);
-
-  //   const currentYear = today.getFullYear();
-
-  console.log("current date", currentDate);
+  console.log("currentyear", currentYear);
   const dayInWeek = [0, 1, 2, 3, 4, 5, 6];
   const [selectDate, setSelectDate] = useState(today);
   console.log("selectDate", selectDate);
-  console.log("selectMonth", selectDate.getMonth());
   const monthLastDate = new Date(
     selectDate.getFullYear(),
     selectDate.getMonth() + 1,
     0
   );
-  console.log("monthlastDate", monthLastDate);
-
+  console.log("monthLastdate", monthLastDate);
   const daysInMonth = monthLastDate.getDate();
-  console.log("daysInMonth", daysInMonth);
+  console.log("daysInMontth", daysInMonth);
   const prevMonthLastDate = new Date(
     selectDate.getFullYear(),
     selectDate.getMonth(),
     0
   );
-
   console.log("prevmonthlastdate", prevMonthLastDate);
-
   const firstDayInMonth = new Date(
     selectDate.getFullYear(),
     selectDate.getMonth(),
     1
   ).getDay();
-
-  console.log("firstDayInMonth", firstDayInMonth);
-
+  console.log("firstdayinmonth", firstDayInMonth);
   let currentMonthStartingPoint = dayInWeek.indexOf(firstDayInMonth) + 1;
-  console.log("currentmonthstartingPoint", currentMonthStartingPoint);
-
+  console.log("currentMonthStartingPoint", currentMonthStartingPoint);
   let prevMonthStartingPoint =
     prevMonthLastDate.getDate() - dayInWeek.indexOf(firstDayInMonth) + 1;
   console.log("prevMonthStartingPoint", prevMonthStartingPoint);
-
   let currentMonthCounter = 1;
   let nextMonthCounter = 1;
 
@@ -79,7 +65,6 @@ const Getcalander = (days = Days, months = Months) => {
     for (let j = 1; j <= col; j++) {
       if (!calanderRow[i]) {
         calanderRow[i] = [];
-        console.log("calanderrow", calanderRow);
       }
       if (i === 1) {
         if (j < currentMonthStartingPoint) {
@@ -92,7 +77,6 @@ const Getcalander = (days = Days, months = Months) => {
             },
           ];
           prevMonthStartingPoint++;
-          console.log(calanderRow);
         } else {
           calanderRow[i] = [
             ...calanderRow[i],
@@ -112,17 +96,12 @@ const Getcalander = (days = Days, months = Months) => {
           ...calanderRow[i],
           {
             month: `${months[selectDate.getMonth()]}`,
-
             date: currentMonthCounter,
             year: selectDate.getFullYear(),
           },
         ];
         currentMonthCounter++;
       } else {
-        console.log(
-          "whbekfnfkefkb j rjhbc3ir eci3 e3kecn4i3d  ",
-          selectDate.getMonth()
-        );
         calanderRow[i] = [
           ...calanderRow[i],
           {
@@ -156,7 +135,6 @@ const Getcalander = (days = Days, months = Months) => {
     setSelectDate(
       () => new Date(today.getFullYear(), today.getMonth(), today.getDate())
     );
-    console.log("This Is The Current Date", selectDate);
   };
 
   return {
@@ -171,6 +149,7 @@ const Getcalander = (days = Days, months = Months) => {
     getNextMonth,
     getToday,
   };
+  
 };
 
 export default Getcalander;
