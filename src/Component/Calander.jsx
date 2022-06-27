@@ -17,19 +17,20 @@ export default function Calander() {
     getToday,
   } = GetCalander();
 
-  console.log(
-    "cbejbce3be3knkrenfk jhb3iuf3f",
-    months[+moment(selectDate).format("MM")]
-  );
-  console.log("cbejbce3be3knkrenf", +moment(selectDate).format("MM"));
+  // console.log(
+  //   "cbejbce3be3knkrenfk jhb3iuf3f",
+  //   months[+moment(selectDate).format("MM")]
+  // );
+  // console.log("cbejbce3be3knkrenf", +moment(selectDate).format("MM"));
 
+  // console.log("months", months[currentMonth]);
   return (
     <>
       <div className="container-fluid">
         <div className="header d-flex justify-content-between align-items-center p-3">
           <div>
             <span className="fw-bold mx-2" style={{ fontSize: "50px" }}>
-              {months[+moment(selectDate).format("MM")-1]}
+              {months[+moment(selectDate).format("MM") - 1]}
             </span>{" "}
             <span className="h1 fw-normal" style={{ fontSize: "50px" }}>
               {moment(selectDate).format("YYYY")}
@@ -66,69 +67,64 @@ export default function Calander() {
             return (
               <div className="row" style={{ height: "135px" }}>
                 {val.map((value, i) => {
+                  console.log("Little Bunty", +moment(selectDate).format("MM"));
+
                   return (
                     <>
-                      {value.date === 1 ? (
-                        <>
-                          <div
-                            className="col border"
-                            style={{
-                              background: `${i === 0 ? "#f0f0f2" : ""}`,
-                            }}
-                          >
-                            <h2
+                      <div
+                        className="col border"
+                        style={{
+                          background: `${i === 0 ? "#f0f0f2" : ""}`,
+                        }}
+                      >
+                        {value.date === 1 ? (
+                          <>
+                            <span
                               className={`${
-                                value.month !==
-                                months[+moment(selectDate).format("MM")]
-                                  ? "text-secondary"
-                                  : ""
-                              } mt-3`}
+                                value.month === months[currentMonth] &&
+                                value.date === currentDate &&
+                                value.year === currentYear
+                                  ? "text-success"
+                                  : "bg-danger"
+                              }`}
                             >
-                              <span
+                              <h2
                                 className={`${
-                                  value.month ===
-                                  +moment(selectDate).format("MM") + 1
-                                    ? "text-danger"
+                                  value.month !==
+                                  months[+moment(selectDate).format("MM") - 1]
+                                    ? "text-secondary"
                                     : ""
-                                }`}
+                                } mt-3`}
+                              >
+                                {value.date} {value.month.slice(0, 3)}
+                              </h2>
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <span
+                              className={`${
+                                value.month === months[currentMonth] &&
+                                value.date === currentDate &&
+                                value.year === currentYear
+                                  ? "text-success"
+                                  : ""
+                              }`}
+                            >
+                              <h2
+                                className={`${
+                                  value.month !==
+                                  months[+moment(selectDate).format("MM") - 1]
+                                    ? "text-secondary"
+                                    : ""
+                                } mt-3`}
                               >
                                 {value.date}
-                              </span>
-                              <span>{value.month.slice(0, 3)}</span>
-                            </h2>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div
-                            className="col border"
-                            style={{
-                              backgroundColor: `${i === 0 ? "#f0f0f2" : ""}`,
-                            }}
-                          >
-                            <h2
-                              className={`${
-                                value.month !==
-                                months[+moment(selectDate).format("MM")]
-                                  ? "text-secondary"
-                                  : ""
-                              } mt-3`}
-                            >
-                              <span
-                                className={`${
-                                  value.month === months[currentMonth] &&
-                                  value.date === currentDate &&
-                                  value.year === currentYear
-                                    ? "text-light bg-danger rounded-circle p-2"
-                                    : ""
-                                }`}
-                              >
-                                {value.date}
-                              </span>
-                            </h2>
-                          </div>
-                        </>
-                      )}
+                              </h2>
+                            </span>
+                          </>
+                        )}
+                      </div>
                     </>
                   );
                 })}
